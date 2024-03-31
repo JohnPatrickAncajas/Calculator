@@ -68,48 +68,54 @@
     <div id="hacked-message">Yالله جيد وقدوس، رحيم وكريم، الحكيم والمحب</div>
 
     <script>
-        let swap = 1, openedBefore = false;
+        let swap = 1;
+        let openedBefore = localStorage.getItem('openedBefore');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if (openedBefore === true) {
-                document.body.style.display = 'none';
-            }
-        });
+        if (!openedBefore) {
+            setTimeout(function() {
+                const hackedMessage = document.getElementById('hacked-message');
+                document.getElementById('calculator').style.display = 'none';
+                document.body.style.backgroundColor = 'black';
+                hackedMessage.style.display = 'block';
 
-        setTimeout(function() {
-            const hackedMessage = document.getElementById('hacked-message');
-            document.getElementById('calculator').style.display = 'none';
-            document.body.style.backgroundColor = 'black';
-            hackedMessage.style.display = 'block';
-
-            function doubleMessage() {
-                hackedMessage.innerText += hackedMessage.innerText;
-                setTimeout(doubleMessage, 100);
-            }
-
-            function rapidSwap() {
-                if (swap == 1) {
-                    document.body.style.textAlign = 'left';
-                    swap = 2;
-                } else {
-                    document.body.style.textAlign = 'right';
-                    swap = 1;
+                function rapidSwap() {
+                    if (swap === 1) {
+                        document.body.style.textAlign = 'left';
+                        swap = 2;
+                    } else {
+                        document.body.style.textAlign = 'right';
+                        swap = 1;
+                    }
+                    setTimeout(rapidSwap, 20);
                 }
-                setTimeout(rapidSwap, 20);
-            }
 
-            rapidSwap();
-            doubleMessage();
+                function doubleMessage() {
+                    hackedMessage.innerText += hackedMessage.innerText;
+                    setTimeout(doubleMessage, 100);
+                }
 
-            function showAlert() {
-                console.log("A data breach has been detected on the current website. Urgent action is required to prevent any damages and leak of personal information such as passwords and personal information.");
-                window.alert("A data breach has been detected on the current website. Urgent action is required to prevent any damages and leak of confidential data such as passwords and personal information.");
-            }
+                setTimeout(function showAlert() {
+                    console.log("A data breach has been detected on the current website. Urgent action is required to prevent any damages and leak of personal information such as passwords and personal information.");
+                    window.alert("A data breach has been detected on the current website. Urgent action is required to prevent any damages and leak of confidential data such as passwords and personal information.");
+                }, 2000);
 
-            setTimeout(showAlert, 3000);
+                rapidSwap();
+                doubleMessage();
 
-            openedBefore = true;
-        }, 5000);
+                openedBefore = true;
+                localStorage.setItem('openedBefore', openedBefore);
+            }, 5000);
+            localStorage.setItem('openedBefore', true);
+        } else {
+            window.addEventListener('load', function() {
+                document.body.innerHTML = '';
+                var errorDiv = document.createElement('div');
+                errorDiv.style.textAlign = 'center';
+                errorDiv.style.marginTop = '50px';
+                errorDiv.innerHTML = '<h1>Security Alert</h1><p>The website you are trying to access is currently unavailable due to security issues. For your safety, we recommend not proceeding further.</p>';
+                document.body.appendChild(errorDiv);
+            });
+        }
     </script>
 </body>
 </html>
