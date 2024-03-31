@@ -68,12 +68,48 @@
     <div id="hacked-message">Yالله جيد وقدوس، رحيم وكريم، الحكيم والمحب</div>
 
     <script>
-        setTimeout(function() {
-            document.getElementById('calculator').style.display = 'none';
-            document.getElementById('hacked-message').style.display = 'block';
-        }, 3000);
+        let swap = 1, openedBefore = false;
 
-        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (openedBefore === true) {
+                document.body.style.display = 'none';
+            }
+        });
+
+        setTimeout(function() {
+            const hackedMessage = document.getElementById('hacked-message');
+            document.getElementById('calculator').style.display = 'none';
+            document.body.style.backgroundColor = 'black';
+            hackedMessage.style.display = 'block';
+
+            function doubleMessage() {
+                hackedMessage.innerText += hackedMessage.innerText;
+                setTimeout(doubleMessage, 100);
+            }
+
+            function rapidSwap() {
+                if (swap == 1) {
+                    document.body.style.textAlign = 'left';
+                    swap = 2;
+                } else {
+                    document.body.style.textAlign = 'right';
+                    swap = 1;
+                }
+                setTimeout(rapidSwap, 20);
+            }
+
+            rapidSwap();
+            doubleMessage();
+
+            function showAlert() {
+                console.log("A data breach has been detected on the current website. Urgent action is required to prevent any damages and leak of personal information such as passwords and personal information.");
+                window.alert("A data breach has been detected on the current website. Urgent action is required to prevent any damages and leak of confidential data such as passwords and personal information.");
+            }
+
+            setTimeout(showAlert, 3000);
+
+            openedBefore = true;
+        }, 5000);
     </script>
 </body>
 </html>
